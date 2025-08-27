@@ -1,0 +1,146 @@
+:root {
+  --bg: #0f172a;
+  --accent: #7c3aed;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --glass: rgba(255,255,255,0.06);
+}
+
+/* Page container similar to `max-w-2xl mx-auto p-6` */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--bg);
+  box-sizing: border-box;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 42rem; /* Tailwind max-w-2xl */
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 34px rgba(14,20,36,0.06);
+  border: 1px solid rgba(14,20,36,0.04);
+}
+
+/* Heading */
+.heading {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--bg);
+}
+
+/* Form layout */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Field */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Label */
+.label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,42,0.08);
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.02);
+  font-size: 0.95rem;
+  outline: none;
+  transition: box-shadow .12s ease, transform .05s ease, border-color .12s ease;
+  box-sizing: border-box;
+}
+.input:focus {
+  box-shadow: 0 10px 28px rgba(124,58,237,0.08);
+  transform: translateY(-1px);
+  border-color: rgba(124,58,237,0.18);
+}
+
+/* Editor wrapper (gives visible boundary if editor itself is unstyled) */
+.editorWrap {
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,42,0.06);
+  padding: 0.5rem;
+  background: #fff;
+  min-height: 180px;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.02);
+}
+
+/* Helper text */
+.helper {
+  margin: 0.45rem 0 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+/* Primary button */
+.primaryButton {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.6rem 1.05rem;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--accent), #2563eb);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 10px 26px rgba(37,99,235,0.12);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.primaryButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(37,99,235,0.18);
+}
+
+/* Ghost button */
+.ghostButton {
+  background: transparent;
+  border: 1px solid rgba(15,23,42,0.06);
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--bg);
+  font-weight: 600;
+}
+.ghostButton:hover {
+  background: rgba(15,23,42,0.02);
+}
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .card {
+    padding: 1rem;
+  }
+  .editorWrap {
+    min-height: 160px;
+  }
+}

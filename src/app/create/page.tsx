@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import RichTextEditor from "../components/RichTextEditor";
+import styles from "./create.module.css";
 
 type FormValues = {
   title: string;
@@ -43,40 +44,54 @@ export default function Create() {
   };
 
   return (
-    <main className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Create Post</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Title Input */}
-        <div>
-          <label className="block text-sm font-medium">Title</label>
-          <input
-            {...register("title", { required: true })}
-            className="w-full border p-2 rounded"
-          />
-        </div>
+    <main className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.heading}>Create Post</h1>
 
-        {/* Content Editor */}
-        <div>
-          <label className="block text-sm font-medium">Content</label>
-          <RichTextEditor onChange={(value) => setEditorContent(value)} />
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          {/* Title Input */}
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="title">Title</label>
+            <input
+              id="title"
+              {...register("title", { required: true })}
+              className={styles.input}
+              placeholder="Write a concise, descriptive title"
+            />
+          </div>
 
-        {/* Author Input */}
-        <div>
-          <label className="block text-sm font-medium">Author</label>
-          <input
-            {...register("author")}
-            className="w-full border p-2 rounded"
-          />
-        </div>
+          {/* Content Editor */}
+          <div className={styles.field}>
+            <label className={styles.label}>Content</label>
+            <div className={styles.editorWrap}>
+              <RichTextEditor onChange={(value) => setEditorContent(value)} />
+            </div>
+            <p className={styles.helper}>Use the toolbar to format text. Content will be saved when you publish.</p>
+          </div>
 
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded"
-        >
-          Publish
-        </button>
-      </form>
+          {/* Author Input */}
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="author">Author</label>
+            <input
+              id="author"
+              {...register("author")}
+              className={styles.input}
+              placeholder="Your name (optional)"
+            />
+          </div>
+
+          <div className={styles.actions}>
+            <button type="submit" className={styles.primaryButton}>Publish</button>
+            <button
+              type="button"
+              className={styles.ghostButton}
+              onClick={() => router.push("/")}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
   );
 }

@@ -11,7 +11,7 @@ interface Post {
 
 export default async function PostPage({ params }: { params: { id: string } }) {
   try {
-    const res = await fetch(`http://localhost:5000/api/posts/${params.id}`, {
+    const res = await fetch(`https://pen-pixel-server-fawn.vercel.app/api/posts/${params.id}`, {
       cache: "no-store", // ensures SSR (fresh data every time)
     });
 

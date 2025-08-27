@@ -1,0 +1,54 @@
+/* Container similar to `max-w-3xl mx-auto p-6` */
+.container {
+  max-width: 48rem; /* Tailwind max-w-3xl = 48rem */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem; /* p-6 = 1.5rem */
+  box-sizing: border-box;
+}
+
+/* Header: `flex items-center justify-between mb-6` */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+/* Title: `text-2xl font-bold` */
+.title {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700;  /* font-bold */
+  margin: 0;
+}
+
+/* Button: `bg-blue-600 text-white px-4 py-2 rounded` */
+.newPostButton {
+  display: inline-block;
+  background-color: #2563eb; /* Tailwind blue-600 */
+  color: #ffffff;           /* text-white */
+  padding: 0.5rem 1rem;     /* py-2 px-4 */
+  border-radius: 0.25rem;   /* rounded */
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1;
+  transition: opacity 0.12s ease;
+}
+.newPostButton:hover,
+.newPostButton:focus {
+  opacity: 0.92;
+  outline: none;
+}
+
+/* Loading paragraph (kept minimal) */
+.loading {
+  color: #374151; /* gray-700-ish */
+}
+
+/* posts list: `space-y-4` -> vertical spacing between direct children */
+.postsList {
+  /* nothing required on the container itself for layout, but we add spacing between children */
+}
+.postsList > * + * {
+  margin-top: 1rem; /* space-y-4 = 1rem */
+}

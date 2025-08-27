@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import PostCard from "./components/PostCard";
+import styles from "./Home.module.css"; 
 
 type Post = {
   _id: string;
@@ -18,7 +19,7 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/posts");
+        const res = await fetch("https://pen-pixel-server-fawn.vercel.app/api/posts");
         const data = await res.json();
         setPosts(data);
       } catch (err) {
@@ -30,16 +31,25 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="max-w-3xl mx-auto p-6">
-      <header className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">My Blog</h1>
-        <Link href="/create" className="bg-blue-600 text-white px-4 py-2 rounded">New Post</Link>
+    <main className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>My Blog</h1>
+        <Link href="/create" className={styles.newPostButton}>New Post</Link>
       </header>
 
-      {loading ? <p>Loading...</p> : (
-        <div className="space-y-4">
+      {loading ? (
+        <p className={styles.loading}>Loading...</p>
+      ) : (
+        <div className={styles.postsList}>
           {posts.map(p => (
-            <PostCard key={p._id} id={p._id} title={p.title} content={p.content} author={p.author} createdAt={p.createdAt} />
+            <PostCard
+              key={p._id}
+              id={p._id}
+              title={p.title}
+              content={p.content}
+              author={p.author}
+              createdAt={p.createdAt}
+            />
           ))}
         </div>
       )}

@@ -26,7 +26,7 @@ export default function Create() {
       };
 
       console.log(postData);
-      const res = await fetch("http://localhost:5000/api/posts", {
+      const res = await fetch("https://pen-pixel-server-fawn.vercel.app/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(postData),

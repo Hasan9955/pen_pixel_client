@@ -1,54 +1,236 @@
-/* Container similar to `max-w-3xl mx-auto p-6` */
-.container {
-  max-width: 48rem; /* Tailwind max-w-3xl = 48rem */
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1.5rem; /* p-6 = 1.5rem */
-  box-sizing: border-box;
+:root{
+  --bg: #0f172a;      /* navy-ish for hero */
+  --accent: #7c3aed;  /* purple */
+  --muted: #6b7280;   /* gray-500 */
+  --card: #ffffff;
+  --glass: rgba(255,255,255,0.06);
 }
 
-/* Header: `flex items-center justify-between mb-6` */
-.header {
+/* Page layout */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #0f172a;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(59,130,246,0.04));
+  border-bottom: 1px solid rgba(15,23,42,0.04);
+}
+.heroInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem; /* mb-6 */
+  flex-direction: column;
+  gap: 18px;
 }
-
-/* Title: `text-2xl font-bold` */
-.title {
-  font-size: 1.5rem; /* text-2xl */
-  font-weight: 700;  /* font-bold */
+.heroTitle {
   margin: 0;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--bg);
+}
+.heroSubtitle {
+  margin: 0;
+  color: var(--muted);
+  max-width: 72ch;
+  line-height: 1.5;
 }
 
-/* Button: `bg-blue-600 text-white px-4 py-2 rounded` */
-.newPostButton {
-  display: inline-block;
-  background-color: #2563eb; /* Tailwind blue-600 */
-  color: #ffffff;           /* text-white */
-  padding: 0.5rem 1rem;     /* py-2 px-4 */
-  border-radius: 0.25rem;   /* rounded */
-  text-decoration: none;
-  font-weight: 500;
-  line-height: 1;
-  transition: opacity 0.12s ease;
+/* Controls row */
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 6px;
+  flex-wrap: wrap;
 }
-.newPostButton:hover,
-.newPostButton:focus {
-  opacity: 0.92;
+.searchWrap {
+  flex: 1;
+  min-width: 220px;
+}
+.searchInput {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,42,0.08);
+  background: white;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.03);
+  font-size: 0.95rem;
   outline: none;
+  transition: box-shadow .15s ease, transform .05s ease;
+}
+.searchInput:focus {
+  box-shadow: 0 8px 28px rgba(124,58,237,0.12);
+  transform: translateY(-1px);
+  border-color: rgba(124,58,237,0.25);
 }
 
-/* Loading paragraph (kept minimal) */
-.loading {
-  color: #374151; /* gray-700-ish */
+/* Buttons */
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, var(--accent), #2563eb);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.14);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(37,99,235,0.18);
 }
 
-/* posts list: `space-y-4` -> vertical spacing between direct children */
-.postsList {
-  /* nothing required on the container itself for layout, but we add spacing between children */
+/* Content area */
+.content {
+  padding: 28px 18px 80px;
 }
-.postsList > * + * {
-  margin-top: 1rem; /* space-y-4 = 1rem */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header row above grid */
+.gridHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.sectionTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.sectionMeta {
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+/* Skeleton card (loading) */
+.skeletonCard {
+  height: 180px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.03), rgba(0,0,0,0.02));
+  position: relative;
+  overflow: hidden;
+}
+.skeletonCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.25), rgba(255,255,255,0));
+  transform: translateX(-100%);
+  animation: shimmer 1.2s infinite;
+}
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+/* Empty state */
+.emptyState {
+  text-align: center;
+  padding: 28px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.06);
+}
+.secondaryButton {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid rgba(15,23,42,0.06);
+  text-decoration: none;
+  color: var(--bg);
+}
+
+/* Post card wrapper — target PostCard's article structure */
+.cardWrapper > article {
+  background: linear-gradient(180deg, white, #fbfdff);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(14,20,36,0.06);
+  border: 1px solid rgba(14,20,36,0.04);
+  transition: transform .14s ease, box-shadow .14s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 160px;
+}
+.cardWrapper > article:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(14,20,36,0.12);
+}
+
+/* Post title (inside article > h2) */
+.cardWrapper > article h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.06rem;
+  font-weight: 700;
+  color: #0b1220;
+}
+.cardWrapper > article h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+.cardWrapper > article h2 a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Meta text inside article p (author/date) */
+.cardWrapper > article p:first-of-type {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+/* Excerpt / content paragraph */
+.cardWrapper > article p + p {
+  color: #111827;
+  line-height: 1.45;
+  margin: 0;
+  margin-top: 8px;
+  flex: 1; /* push Read more down */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Read more link (assumed to be link at end) */
+.cardWrapper > article .readMore {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(37,99,235,0.08);
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .heroInner { padding: 28px 14px; }
+  .heroTitle { font-size: 1.6rem; }
+  .controls { gap: 8px; }
+  .grid { gap: 12px; }
 }
